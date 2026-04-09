@@ -18,26 +18,6 @@ This project is a **TaskFlow App** (frontend + backend + PostgreSQL) with **Dock
 
 ---
 
-## Directory Structure
-
-taskflow-app/
-├─ backend/ # Node.js backend code
-│ ├─ Dockerfile
-│ ├─ index.js
-│ └─ package.json
-├─ frontend/ # React frontend code
-│ ├─ Dockerfile
-│ ├─ App.js
-│ └─ App.css
-├─ db/
-│ └─ init.sql # PostgreSQL initialization
-├─ docker-compose.yml # Compose file for all services
-├─ default.conf # Nginx reverse proxy config
-└─ ansible/
-└─ deploy.yml # Ansible playbook to deploy app
-
----
-
 ## Docker Compose
 
 ### Services
@@ -51,4 +31,13 @@ taskflow-app/
 
 ```bash
 docker compose up -d --build
+```
+---
 
+## Ansible Deployment
+
+You can deploy the TaskFlow app to a remote server using **Ansible**.
+
+```bash
+ansible-playbook -i inventory playbook.yml
+```
