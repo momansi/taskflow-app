@@ -1,0 +1,17 @@
+---
+- name: deploy taskflow app on a remote server
+  hosts: all
+  become: true
+  tasks:
+    - name: copy files to remote server
+      copy:
+        src: ../taskflow-app
+        dest: /home/mansi
+        owner: mansi
+        mode: u=rw,g=r,o=r
+
+    - name: stop and remove containers
+      command: docker compose -f /home/mansi/taskflow-app/docker-compose.yml down
+
+    - name: run containers
+      command: docker compose -f /home/mansi/taskflow-app/docker-compose.yml up -d --build

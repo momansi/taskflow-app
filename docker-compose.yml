@@ -2,7 +2,7 @@ version: '3'
 services:
   frontend:
     container_name: frontend_app
-    image: ./backend
+    build: ./frontend
     networks:
       - app_network
 
