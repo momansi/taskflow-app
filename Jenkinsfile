@@ -16,11 +16,16 @@ pipeline{
                 }
             }
         }
-        stage('deploy'){
-            steps{
-                sh 'docker-compose pull'
-                sh 'docker-compose down'
-                sh 'docker-compose up -d'
+        stage('deploy') {
+            steps {
+                sh '''
+                ssh mansi@192.168.1.10 "
+                    cd /home/mansi/DevOps/taskflow-app &&
+                    docker compose pull &&
+                    docker compose down &&
+                    docker compose up -d
+                "
+                '''
             }
         }
     }
