@@ -19,7 +19,7 @@ pipeline{
         stage('deploy') {
             steps {
                 sh '''
-                ssh mansi@192.168.1.10 "
+                ssh -o StrictHostKeyChecking=no mansi@192.168.1.10 "
                     cd /home/mansi/DevOps/taskflow-app &&
                     docker compose pull &&
                     docker compose down &&
