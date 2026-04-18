@@ -2,13 +2,13 @@ version: '3'
 services:
   frontend:
     container_name: frontend_app
-    build: ./frontend
+    image: muhammadelmansi/taskflow-frontend:latest
     networks:
       - app_network
 
   backend:
     container_name: backend_app
-    build: ./backend
+    image: muhammadelmansi/taskflow-backend:latest
     env_file:
       - ./.env
     depends_on:
