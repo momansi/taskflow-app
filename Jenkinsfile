@@ -23,7 +23,7 @@ pipeline{
                     cd /home/mansi/DevOps/taskflow-app &&
                     docker compose pull &&
                     docker compose down &&
-                    docker compose up -d
+                    docker compose up -d 
                 "
                 '''
             }
