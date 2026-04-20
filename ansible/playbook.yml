@@ -31,3 +31,9 @@
 
     - name: Wait for frontend rollout
       command: kubectl rollout status deployment frontend -n taskflow-app
+      
+    - name: add taskflow host entry
+      ansible.builtin.lineinfile:
+        path: /etc/hosts
+        line: "192.168.49.2 taskflow.local"
+        state: present
