@@ -14,7 +14,6 @@
       synchronize:
         src: ../k8s/
         dest: "{{ workdir }}/"
-        delete: yes
         compress: yes
 
     - name: sync k8s files 
