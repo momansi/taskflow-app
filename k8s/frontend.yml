@@ -15,7 +15,8 @@ spec:
     spec:
       containers:
         - name: frontend-container 
-          image: muhammadelmansi/taskflow-frontend
+          image: muhammadelmansi/taskflow-frontend:latest
+          imagePullPolicy: Always
           ports:
             - containerPort: 80
 ---

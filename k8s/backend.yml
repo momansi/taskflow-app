@@ -15,7 +15,8 @@ spec:
     spec:
       containers:
         - name: backend-container 
-          image: muhammadelmansi/taskflow-backend
+          image: muhammadelmansi/taskflow-backend:latest
+          imagePullPolicy: Always
           ports:
             - containerPort: 3000
           env:
