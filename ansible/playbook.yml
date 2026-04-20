@@ -1,0 +1,7 @@
+---
+- name: deploy taskflow app
+  hosts: all
+  become: true
+  tasks:
+    - name: pull images
+      command: 

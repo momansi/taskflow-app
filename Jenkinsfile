@@ -16,16 +16,9 @@ pipeline{
                 }
             }
         }
-        stage('deploy') {
+        stage('playbook') {
             steps {
-                sh '''
-                ssh -o StrictHostKeyChecking=no mansi@192.168.1.10 "
-                    cd /home/mansi/DevOps/taskflow-app &&
-                    docker compose pull &&
-                    docker compose down &&
-                    docker compose up -d 
-                "
-                '''
+                sh 'ansible-playbook -i ansible/inventory ansible/playbook.yml'
             }
         }
     }
