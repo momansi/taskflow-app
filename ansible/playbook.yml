@@ -18,12 +18,12 @@
 
     - name: render backend manifest
       template:
-        src: "{{ workdir }}/backend.yml.j2"
+        src: "../k8s/backend.yml.j2"
         dest: "{{ workdir }}/backend.yml"
 
     - name: render frontend manifest
       template:
-        src: "{{ workdir }}/frontend.yml.j2"
+        src: "../k8s/frontend.yml.j2"
         dest: "{{ workdir }}/frontend.yml"
         
     - name: Apply all manifests
