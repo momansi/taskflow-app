@@ -14,6 +14,7 @@
       synchronize:
         src: ../k8s/
         dest: "{{ workdir }}/"
+        delete: yes
         compress: yes
 
     - name: sync k8s files 
@@ -29,12 +30,12 @@
 
     - name: render backend manifest
       template:
-        src: backend.yml.j2
+        src: ../backend.yml.j2
         dest: "{{ workdir }}/backend.yml"
 
     - name: render frontend manifest
       template:
-        src: frontend.yml.j2
+        src: ../frontend.yml.j2
         dest: "{{ workdir }}/frontend.yml"
         
     - name: Apply all manifests
