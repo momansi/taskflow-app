@@ -31,12 +31,12 @@
     - name: render backend manifest
       template:
         src: ../backend.yml.j2
-        dest: "{{ workdir }}/backend.yml"
+        dest: "{{ workdir }}/backend.yml.j2"
 
     - name: render frontend manifest
       template:
         src: ../frontend.yml.j2
-        dest: "{{ workdir }}/frontend.yml"
+        dest: "{{ workdir }}/frontend.yml.j2"
         
     - name: Apply all manifests
       command: kubectl apply -n taskflow-app -f .
