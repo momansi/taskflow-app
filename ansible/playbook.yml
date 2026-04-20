@@ -3,6 +3,7 @@
   hosts: all
   vars:
     workdir: /home/mansi/taskflow-app/k8s
+    image_tag: latest
   tasks:
     - name: sync k8s files 
       synchronize: 
@@ -14,17 +15,21 @@
       command: kubectl apply -f ns.yml
       args:
         chdir: "{{ workdir }}"
+
+    - name: render backend manifest
+      template:
+        src: "{{ workdir }}/backend.yml.j2"
+        dest: "{{ workdir }}/backend.yml"
+
+    - name: render frontend manifest
+      template:
+        src: "{{ workdir }}/frontend.yml.j2"
+        dest: "{{ workdir }}/frontend.yml"
         
     - name: Apply all manifests
       command: kubectl apply -n taskflow-app -f .
       args:
         chdir: "{{ workdir }}"
-
-    - name: Restart backend
-      command: kubectl rollout restart deployment backend -n taskflow-app
-
-    - name: Restart frontend
-      command: kubectl rollout restart deployment frontend -n taskflow-app
 
     - name: Wait for backend rollout
       command: kubectl rollout status deployment backend -n taskflow-app

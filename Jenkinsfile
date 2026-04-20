@@ -3,8 +3,8 @@ pipeline{
     stages{
         stage('build images'){
             steps{
-                sh 'docker build -t muhammadelmansi/taskflow-frontend:latest ./frontend'
-                sh 'docker build -t muhammadelmansi/taskflow-backend:latest ./backend'
+                sh 'docker build -t muhammadelmansi/taskflow-frontend:${BUILD_NUMBER} ./frontend'
+                sh 'docker build -t muhammadelmansi/taskflow-backend:${BUILD_NUMBER} ./backend'
             }
         }
         stage('push images'){
@@ -13,15 +13,18 @@ pipeline{
                 sh '''
                     echo "$PASS" | docker login -u "$USER" --password-stdin
 
-                    docker push muhammadelmansi/taskflow-frontend:latest
-                    docker push muhammadelmansi/taskflow-backend:latest
+                    docker push muhammadelmansi/taskflow-frontend:${BUILD_NUMBER}
+                    docker push muhammadelmansi/taskflow-backend:${BUILD_NUMBER}
                 '''
                 }
             }
         }
         stage('playbook') {
             steps {
-                sh 'ansible-playbook -i ansible/inventory ansible/playbook.yml'
+                sh """  
+                ansible-playbook -i ansible/inventory ansible/playbook.yml \
+                -e image_tag=${BUILD_NUMBER}
+                """
             }
         }
     }
