@@ -42,3 +42,16 @@
 
     - name: Wait for frontend rollout
       command: kubectl rollout status deployment frontend -n taskflow-app
+
+    - name: get ingress ip
+      command: minikube ip
+      register: ingress_ip
+      changed_when: false
+
+    - name: ensure taskflow domain in /etc/hosts
+      become: true
+      ansible.builtin.lineinfile:
+        path: /etc/hosts
+        line: "{{ ingress_ip.stdout }} taskflow.local"
+        state: present
+        create: yes
