@@ -4,7 +4,7 @@
   vars:
     workdir: /home/mansi/taskflow-app/k8s
   tasks:
-    - name: sync k8s files
+    - name: sync k8s files 
       synchronize: 
         src: ../k8s/
         dest: "{{ workdir }}/"
