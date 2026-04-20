@@ -5,6 +5,18 @@
     workdir: /home/mansi/taskflow-app/k8s
     image_tag: latest
   tasks:
+    - name: create working directory
+      file:
+        path: "{{ workdir }}"
+        state: directory
+
+    - name: sync base k8s files
+      synchronize:
+        src: ../k8s/
+        dest: "{{ workdir }}/"
+        delete: yes
+        compress: yes
+
     - name: sync k8s files 
       synchronize: 
         src: ../k8s/
@@ -16,7 +28,15 @@
       args:
         chdir: "{{ workdir }}"
 
+    - name: render backend manifest
+      template:
+        src: backend.yml.j2
+        dest: "{{ workdir }}/backend.yml"
 
+    - name: render frontend manifest
+      template:
+        src: frontend.yml.j2
+        dest: "{{ workdir }}/frontend.yml"
         
     - name: Apply all manifests
       command: kubectl apply -n taskflow-app -f .
