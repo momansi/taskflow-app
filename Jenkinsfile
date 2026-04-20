@@ -10,9 +10,12 @@ pipeline{
         stage('push images'){
             steps{
                 withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'pass', usernameVariable: 'user')]) {
-                sh 'echo $pass | docker login -u $user --password-stdin'
-                sh 'docker push muhammadelmansi/taskflow-frontend:latest'
-                sh 'docker push muhammadelmansi/taskflow-backend:latest'
+                sh '''
+                    echo "$PASS" | docker login -u "$USER" --password-stdin
+
+                    docker push muhammadelmansi/taskflow-frontend:latest
+                    docker push muhammadelmansi/taskflow-backend:latest
+                '''
                 }
             }
         }
