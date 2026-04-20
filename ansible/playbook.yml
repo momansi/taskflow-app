@@ -1,8 +1,6 @@
 ---
 - name: deploy taskflow app
   hosts: all
-  environment:
-    ANSIBLE_HOST_KEY_CHECKING: "False"
   vars:
     workdir: /home/mansi/taskflow-app/k8s
   tasks:

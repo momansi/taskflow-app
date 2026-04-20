@@ -1,2 +1,2 @@
 [node]
-192.168.1.10 ansible_user=mansi
+192.168.1.10 ansible_user=mansi ansible_ssh_common_args='-o StrictHostKeyChecking=no'
