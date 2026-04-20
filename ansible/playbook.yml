@@ -16,15 +16,7 @@
       args:
         chdir: "{{ workdir }}"
 
-    - name: render backend manifest
-      template:
-        src: "../k8s/backend.yml.j2"
-        dest: "{{ workdir }}/backend.yml"
 
-    - name: render frontend manifest
-      template:
-        src: "../k8s/frontend.yml.j2"
-        dest: "{{ workdir }}/frontend.yml"
         
     - name: Apply all manifests
       command: kubectl apply -n taskflow-app -f .
