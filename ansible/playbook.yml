@@ -6,7 +6,7 @@
   tasks:
     - name: sync k8s files
       synchronize: 
-        src: ./k8s/
+        src: k8s/
         dest: "{{ workdir }}/"
         compress: yes
 
