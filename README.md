@@ -1,4 +1,4 @@
-# 📌 TaskFlow – DevOps CI/CD Kubernetes Project
+# 📌 End-to-End DevOps CI/CD Pipeline on Kubernetes
 
 ## 🚀 Overview
 
