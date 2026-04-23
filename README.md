@@ -107,3 +107,69 @@ A simple load generator pod was used to simulate traffic:
 ![Alt](images/Screenshot%20from%202026-04-22%2001-39-27.png)
 
 ![Alt](images/Screenshot%20from%202026-04-22%2001-39-14.png)
+
+# 🔄 What Happens When Code is Pushed
+
+When a developer pushes code to the repository, the CI/CD pipeline is automatically triggered and executes the following steps:
+
+## 1️⃣ Code Push (GitHub)
+
+- Developer pushes changes to the GitHub repository
+- This action triggers a webhook connected to Jenkins using ngrok
+
+## 2️⃣ Jenkins Pipeline Triggered
+
+- Jenkins detects the change and starts the pipeline
+- Pipeline runs using the `Jenkinsfile`
+
+## 3️⃣ Build Stage (Docker Images)
+
+- Jenkins builds updated Docker images:
+  - `taskflow-frontend`
+  - `taskflow-backend`
+- Images are tagged (build number)
+
+## 4️⃣ Push to Docker Hub
+
+- Jenkins logs in to Docker Hub using stored credentials
+- Built images are pushed to the registry
+
+## 5️⃣ Deployment via Ansible
+
+- Jenkins runs an Ansible playbookand passes build number as an image tag
+- Ansible connects to the Kubernetes server via SSH
+
+### Inside the playbook:
+
+- Kubernetes manifests are copied to the server
+- Jinja2 templates (`.yml.j2`) are rendered with the new image tag
+
+## 6️⃣ Kubernetes Deployment
+
+- `kubectl apply` is executed  
+- Kubernetes detects changes in image version  
+- A rolling update is triggered automatically  
+
+### 🔍 What happens internally:
+- New pods are created with updated images  
+- Old pods are gradually terminated  
+- No downtime occurs during deployment  
+
+## 7️⃣ Application Update
+
+- Frontend and backend pods run the new version  
+- Kubernetes Services continue routing traffic  
+- Ingress routes external traffic seamlessly  
+
+## 8️⃣ Monitoring & Verification
+
+- Prometheus automatically scrapes new metrics  
+- Grafana dashboards update in real time  
+- Resource usage (CPU, memory, network) is monitored  
+
+## ✅ Final Result
+
+- Application is updated automatically  
+- No manual deployment required  
+- Zero-downtime rollout achieved  
+- Fully observable system  
